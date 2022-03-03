@@ -1,0 +1,101 @@
+.actionButtons {
+    width: 90%;
+    height: 28%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border: 4px solid black;
+    position: relative;
+    border-radius: 0px 0px 10px 10px;
+}
+.divButtons{
+    width: 100%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.btn {
+    appearance: none;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+}
+
+.btn:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+}
+
+
+.completebtn{
+    background-color: #008700;
+    box-shadow: rgba(0, 135, 0, .15) 0 4px 9px;
+    color: #fff;
+    padding: 27px 35px;
+}
+.completebtn:hover {
+    background-color: #00a400;
+}
+
+.completebtn:hover {
+    box-shadow: rgba(0, 135, 0, .2) 0 6px 12px;
+}
+
+
+.returnbtn{
+    background-color: #e06600;
+    box-shadow: rgba(224, 102, 0, .15) 0 4px 9px;
+    color: #fff;
+    padding: 18px 25px;
+}
+.returnbtn:hover {
+    background-color: #ef6f00;
+}
+
+.returnbtn:hover {
+    box-shadow: rgba(147, 64, 0, .2) 0 6px 12px;
+}
+
+.issuebtn{
+    background-color: #B00020;
+    box-shadow: rgba(176, 0, 32, .15) 0 4px 9px;
+    color: #fff;
+    padding: 18px 25px;
+}
+.issuebtn:hover {
+    background-color: #d20028;
+}
+
+.issuebtn:hover {
+    box-shadow: rgba(176, 0, 32, .2) 0 6px 12px;
+}

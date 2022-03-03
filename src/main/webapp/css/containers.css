@@ -1,0 +1,80 @@
+.sourceContainerRow {
+    width: 90%;
+    display: grid;
+
+    grid-template-rows: 1fr;
+    grid-gap: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+}
+
+.targetContainerRow {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.sourceContainer {
+    width: 100%;
+    height: 200px;
+    border: 4px solid black;
+    text-align: center;
+    display: table;
+}
+
+.targetContainer {
+    width: 100%;
+    height: 200px;
+    border: 4px solid black;
+    text-align: center;
+    display: table;
+}
+
+.targetContainer > span {
+    display: table-cell;
+    vertical-align: middle;
+    width: calc(100% / 3);
+}
+
+.sourceContainer > span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 30px;
+}
+
+.amount {
+    font-size: 30px;
+    color: #5999E4;
+}
+
+.source {
+    font-size: 30px;
+
+}
+
+.nextSource {
+    font-size: 30px;
+    color: #CFCFCF;
+}
+
+.indicator {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.active {
+    border: 5px solid #0000ff;
+
+}
+
+.next {
+    border: 5px solid #808080;
+
+}
