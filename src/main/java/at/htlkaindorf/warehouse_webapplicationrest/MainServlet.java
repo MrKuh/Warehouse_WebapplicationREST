@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
         getServletContext().setAttribute("targetAmount", Integer.parseInt(config.get(1).split(":")[1]));
 
         //Data
-        is = getClass().getClassLoader().getResourceAsStream("data.csv");
+        is = getClass().getClassLoader().getResourceAsStream("testdata.csv");
         Stream<String> resources = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines();
         picks = resources.skip(1).map(Pick::fromString).collect(Collectors.toList());
         getServletContext().removeAttribute("picks");
