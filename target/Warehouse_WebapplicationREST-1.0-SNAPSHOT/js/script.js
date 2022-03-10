@@ -4,9 +4,6 @@ var contracts;
 var targetAmount;
 var sourceAmount;
 
-var pickOld;
-var pickNew;
-
 
 function load() {
     loadConfig();
@@ -18,8 +15,6 @@ function nextPick(next){
     newContant();
     initContant(next);
 
-    drawActive(document.getElementById('sourceContainer' + pickOld.source),
-        document.getElementById('targetContainer' + pickOld.destination));
 
 }
 

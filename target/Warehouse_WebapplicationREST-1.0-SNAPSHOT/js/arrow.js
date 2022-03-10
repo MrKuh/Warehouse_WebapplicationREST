@@ -18,7 +18,7 @@ function drawActive(source, target){
 
     jg.drawLine(coords[0] + coords[4] / 2, (coords[1] + coords[5] * help + coords[3]) / 2, coords[2] + coords[6] / 2,
         (coords[1] + coords[5] * help + coords[3]) / 2);
-
+-
     jg.drawLine(coords[2] + coords[6] / 2, (coords[1] + coords[5] * help + coords[3]) / 2,
         coords[2] + coords[6] / 2, coords[3]);
 
