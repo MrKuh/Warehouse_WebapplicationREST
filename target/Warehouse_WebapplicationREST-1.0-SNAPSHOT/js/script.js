@@ -18,10 +18,8 @@ function nextPick(next){
     newContant();
     initContant(next);
 
-
-
-    myDrawFunction(document.getElementById('sourceContainer' + pickOld.source),
-        document.getElementById('targetContainer' + pickOld.destination), true);
+    drawActive(document.getElementById('sourceContainer' + pickOld.source),
+        document.getElementById('targetContainer' + pickOld.destination));
 
 }
 
@@ -114,8 +112,8 @@ function initContant(next) {
                         if(!document.getElementById('targetContainer' + pick.destination).classList.contains("active")){
                             document.getElementById('targetContainer' + pick.destination).classList.add("next");
                         }
-                        myDrawFunction(document.getElementById('sourceContainer' + pick.source),
-                            document.getElementById('targetContainer' + pick.destination), false);
+                        drawNext(document.getElementById('sourceContainer' + pick.source),
+                            document.getElementById('targetContainer' + pick.destination));
                     }else{
                         document.getElementById("amount" + pick.destination).innerText = "x" + pick.amount;
                         document.getElementById("source" + pick.destination).innerText = pick.productName;
@@ -127,8 +125,8 @@ function initContant(next) {
                         document.getElementById("color").innerText = pick.productColor;
                         document.getElementById("size").innerText = pick.productSize;
 
-                        myDrawFunction(document.getElementById('sourceContainer' + pick.source),
-                            document.getElementById('targetContainer' + pick.destination), true);
+                        drawActive(document.getElementById('sourceContainer' + pick.source),
+                            document.getElementById('targetContainer' + pick.destination));
 
                         document.getElementById('sourceContainer' + pick.source).classList.add("active");
                         document.getElementById('targetContainer' + pick.destination).classList.add("active");
@@ -179,8 +177,8 @@ function newContant() {
                     document.getElementById("color").innerText = pick.productColor;
                     document.getElementById("size").innerText = pick.productSize;
 
-                    myDrawFunction(document.getElementById('sourceContainer' + pick.source),
-                        document.getElementById('targetContainer' + pick.destination), true);
+                    drawActive(document.getElementById('sourceContainer' + pick.source),
+                        document.getElementById('targetContainer' + pick.destination));
 
                     document.getElementById('sourceContainer' + pick.source).classList.add("active");
                     document.getElementById('targetContainer' + pick.destination).classList.add("active");
@@ -229,8 +227,8 @@ function newContantNext() {
                 resp.json().then(function (pick) {
                     console.log(pick);
 
-                    myDrawFunction(document.getElementById('sourceContainer' + pick.source),
-                        document.getElementById('targetContainer' + pick.destination), false);
+                    drawNext(document.getElementById('sourceContainer' + pick.source),
+                        document.getElementById('targetContainer' + pick.destination));
 
                     document.getElementById('sourceContainer' + pick.source).classList.add("next");
                     document.getElementById('targetContainer' + pick.destination).classList.add("next");
