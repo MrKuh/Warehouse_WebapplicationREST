@@ -10,7 +10,9 @@
     <title>Interactive Warehouse Application</title>
 </head>
 
-<body onload="load()" id="myCanvas">
+<body onload="load()">
+<div id="active" styles="z-index: 2">
+    <div id="next" styles="z-index: 3">
 <div class="container">
     <div class="row">
         <div class="column left">
@@ -66,9 +68,13 @@
         </div>
     </div>
 </div>
+    </div>
+</div>
+
 <script src="js/script.js"></script>
 <script src="js/wz_jsgraphics.js"></script>
 <script src="js/arrow.js"></script>
+
 </body>
 </html>
 
