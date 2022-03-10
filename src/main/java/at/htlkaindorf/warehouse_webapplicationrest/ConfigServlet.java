@@ -6,14 +6,28 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "configServlet", value = "/configServlet")
 public class ConfigServlet extends HttpServlet {
 
-    @Override
+    public void init() {
+        //Config
+        InputStream is = getClass().getClassLoader().getResourceAsStream("config.csv");
+        List<String> config = new BufferedReader(
+                new InputStreamReader(is, StandardCharsets.UTF_8)).lines().collect(Collectors.toList());
+
+        getServletContext().removeAttribute("sourceAmount");
+        getServletContext().setAttribute("sourceAmount", Integer.parseInt(config.get(0).split(":")[1]));
+        getServletContext().removeAttribute("targetAmount");
+        getServletContext().setAttribute("targetAmount", Integer.parseInt(config.get(1).split(":")[1]));
+    }
+
+        @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper om = new ObjectMapper();
         resp.setContentType("application/json");
