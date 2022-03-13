@@ -41,9 +41,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA,
 or see http://www.gnu.org/copyleft/lesser.html
 */
 
-
 var jg_ok, jg_ie, jg_fast, jg_dom, jg_moz;
-
 
 function _chkDHTM(wnd, x, i)
 // Under XUL, owner of 'document' must be specified explicitly

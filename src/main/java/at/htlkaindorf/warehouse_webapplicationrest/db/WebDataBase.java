@@ -14,7 +14,6 @@ public class WebDataBase {
     private int activeContainer;
     private int targetAmount;
 
-
     private WebDataBase() {
         containerData = new HashMap<Integer, ArrayList<Pick>>();
         targetAmount = IOAccess.getConfig().get("targetAmount");
@@ -34,8 +33,6 @@ public class WebDataBase {
             orderNumber = pick.getOrderNumber();
             pickList.add(pick);
         }
-
-
         activeContainer = 1;
         isNew = false;
         picks = getPicksWithDestination(activeContainer, activeContainer);
@@ -129,7 +126,6 @@ public class WebDataBase {
                 } else {
                     getNextActiveContainer();
                     picks = getPicksWithDestination(activeContainer, activeContainer);
-
                     if (picks.size() > 1) {
                         data.put("active", picks.get(0));
                         data.put("next", picks.get(1));
