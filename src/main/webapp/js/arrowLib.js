@@ -1,6 +1,6 @@
 /* This notice must be untouched at all times.
 
-wz_jsgraphics.js    v. 3.05
+arrowLib.js    v. 3.05
 The latest version is available at
 http://www.walterzorn.com
 or http://www.devira.com

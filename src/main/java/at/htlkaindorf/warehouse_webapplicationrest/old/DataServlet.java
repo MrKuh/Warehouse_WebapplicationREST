@@ -1,4 +1,4 @@
-package at.htlkaindorf.warehouse_webapplicationrest;
+package at.htlkaindorf.warehouse_webapplicationrest.old;
 
 import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
 import jakarta.servlet.annotation.WebServlet;

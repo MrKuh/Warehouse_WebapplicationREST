@@ -1,4 +1,4 @@
-package at.htlkaindorf.warehouse_webapplicationrest;
+package at.htlkaindorf.warehouse_webapplicationrest.old;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ public class ConfigServlet extends HttpServlet {
         //Config
         InputStream is = getClass().getClassLoader().getResourceAsStream("config.csv");
         List<String> config = new BufferedReader(
-                new InputStreamReader(is, StandardCharsets.UTF_8)).lines().collect(Collectors.toList());
+                new InputStreamReader(is, StandardCharsets.UTF_8)).lines().map(line -> line.split(":")[1]).collect(Collectors.toList());
 
         getServletContext().removeAttribute("sourceAmount");
         getServletContext().setAttribute("sourceAmount", Integer.parseInt(config.get(0).split(":")[1]));
@@ -40,5 +40,4 @@ public class ConfigServlet extends HttpServlet {
             out.println(data);
         }
     }
-
 }

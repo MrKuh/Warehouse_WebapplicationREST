@@ -13,5 +13,7 @@ public class WebApplication extends Application implements ServletContextListene
     public void contextInitialized(ServletContextEvent sce){
         CustomerDB.getInstance().setXmlFile(sce.getServletContext().getRealPath("/xml/customerList.xml"));
         CustomerDB.getInstance().loadXMLData();
-    }*/
+    }
+
+     */
 }
