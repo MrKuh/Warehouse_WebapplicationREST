@@ -10,7 +10,7 @@ function drawActive(source, target){
 
     help = 0.8
 
-    jg.setColor("#0000ff"); // blau
+    jg.setColor("#2F7AE5"); // blau
     jg.setStroke(6);
 
     jg.drawLine(coords[0] + coords[4] / 2, coords[1] + coords[5], coords[0] + coords[4] / 2,

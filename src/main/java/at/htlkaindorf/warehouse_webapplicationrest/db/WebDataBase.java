@@ -1,19 +1,8 @@
-package at.htlkaindorf.warehouse_webapplicationrest;
+package at.htlkaindorf.warehouse_webapplicationrest.db;
 
 import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
-import jakarta.xml.bind.JAXB;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 
 public class WebDataBase {
 

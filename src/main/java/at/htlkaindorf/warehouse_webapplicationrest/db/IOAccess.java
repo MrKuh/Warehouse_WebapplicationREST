@@ -1,4 +1,4 @@
-package at.htlkaindorf.warehouse_webapplicationrest;
+package at.htlkaindorf.warehouse_webapplicationrest.db;
 
 import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
 

@@ -1,5 +1,6 @@
 package at.htlkaindorf.warehouse_webapplicationrest;
 
+import at.htlkaindorf.warehouse_webapplicationrest.db.IOAccess;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
