@@ -74,10 +74,19 @@ public class WebDataBase {
 
     public Map<String, Pick> getData() {
         Map<String, Pick> data = new HashMap<String, Pick>();
+        ArrayList<Pick> nextPicks = new ArrayList<Pick>();
         if (picks.size() == 1) {
-            data.put("active", picks.get(0));
-            ArrayList<Pick> nextPicks = getPicksWithDestination(activeContainer + 1, activeContainer + 1);
-            data.put("next", nextPicks.get(0));
+            if(isNew){
+                nextPicks = new ArrayList(getPicksWithDestination(activeContainer - 1, activeContainer - 1));
+                data.put("active", nextPicks.get(nextPicks.size()-1));
+                nextPicks = new ArrayList(getPicksWithDestination(activeContainer, activeContainer));
+                data.put("next", nextPicks.get(0));
+            }else{
+                nextPicks = new ArrayList(getPicksWithDestination(activeContainer+1, activeContainer+1));
+                data.put("active", picks.get(0));
+
+                data.put("next", nextPicks.get(0));
+            }
         }
         if (picks.size() > 1) {
             data.put("active", picks.get(0));
@@ -118,10 +127,13 @@ public class WebDataBase {
             } else if (picks.size() == 1) {
                 if (isNew) {
                     data.put("active", picks.get(0));
+                    isNew = true;
+                    if(picks.size() == 1){
+                        isNew = false;
+                    }
                     getNextActiveContainer();
                     picks = getPicksWithDestination(activeContainer, activeContainer);
                     data.put("next", picks.get(0));
-                    isNew = true;
 
                 } else {
                     getNextActiveContainer();
