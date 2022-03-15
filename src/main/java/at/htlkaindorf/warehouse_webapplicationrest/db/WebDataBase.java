@@ -4,38 +4,42 @@ import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
 
 import java.util.*;
 
+
 public class WebDataBase {
 
     private static WebDataBase theInstance;
 
-    private HashMap<Integer, ArrayList<Pick>> containerData;
-    private ArrayList<Pick> picks;
-    private boolean isNew;
-    private int activeContainer;
+    private List<Pick> currentPicks;
     private int targetAmount;
+    private int currentOrderNumber;
+    private int destination;
+    private int position;
+    private boolean skipFirst;
+    private boolean skipedBefore;
 
     private WebDataBase() {
-        containerData = new HashMap<Integer, ArrayList<Pick>>();
+        //init destinations
+        currentPicks = IOAccess.getData();
         targetAmount = IOAccess.getConfig().get("targetAmount");
+        currentOrderNumber = currentPicks.get(0).getOrderNumber();
+        destination = 1;
 
-        //init containerData
-        List<Pick> allPicks = IOAccess.getData();
-        ArrayList<Pick> pickList = new ArrayList<Pick>();
-        int orderNumber = allPicks.get(0).getOrderNumber();
-        int targetAmount = IOAccess.getConfig().get("targetAmount");
-        int count = 1;
-        for (Pick pick : allPicks) {
-            if (orderNumber != pick.getOrderNumber() && count <= targetAmount) {
-                containerData.put(count, pickList);
-                pickList = new ArrayList<Pick>();
-                count++;
+        for (Pick pick : currentPicks) {
+            if (pick.getOrderNumber() == currentOrderNumber) {
+                pick.setDestination(destination);
+            } else {
+                destination++;
+                if (destination > targetAmount) {
+                    destination = 1;
+                }
+                currentOrderNumber = pick.getOrderNumber();
+                pick.setDestination(destination);
             }
-            orderNumber = pick.getOrderNumber();
-            pickList.add(pick);
         }
-        activeContainer = 1;
-        isNew = false;
-        picks = getPicksWithDestination(activeContainer, activeContainer);
+        //init data loop
+        position = 0;
+        skipFirst = false;
+        skipedBefore =false;
     }
 
     public synchronized static WebDataBase getInstance() {
@@ -45,114 +49,58 @@ public class WebDataBase {
         return theInstance;
     }
 
-    public ArrayList<Pick> getPicks(int index) {
-        return containerData.get(index);
+    public List<Pick> getPicks() {
+        return currentPicks;
     }
 
-    public ArrayList<Pick> getPicksWithDestination(int index, int destination) {
-        ArrayList<Pick> pickList = new ArrayList(containerData.get(index));
-        for (Pick pick : pickList) {
-            pick.setDestination(destination);
+    public Map<String, Pick> getLastPick(){
+        Map<String, Pick> data = new HashMap<String, Pick>();
+        if(!skipedBefore && position != 0){
+            position--;
+            data.put("active", currentPicks.get(position));
+            data.put("next", currentPicks.get(position + 1));
+        }else{
+            data.put("active", currentPicks.get(position));
+            data.put("next", currentPicks.get(position + 1));
         }
-        return pickList;
+
+        skipedBefore = true;
+        return data;
     }
 
-    public void getNextActiveContainer() {
-        activeContainer++;
-        if (activeContainer > targetAmount) {
-            activeContainer = 1;
-        }
-    }
-
-    public void replacePicks(int index, ArrayList<Pick> picks) {
-        containerData.replace(index, picks);
-    }
-
-    public HashMap<Integer, ArrayList<Pick>> getContainerData() {
-        return containerData;
-    }
 
     public Map<String, Pick> getData() {
         Map<String, Pick> data = new HashMap<String, Pick>();
-        ArrayList<Pick> nextPicks = new ArrayList<Pick>();
-        if (picks.size() == 1) {
-            if(isNew){
-                nextPicks = new ArrayList(getPicksWithDestination(activeContainer - 1, activeContainer - 1));
-                data.put("active", nextPicks.get(nextPicks.size()-1));
-                nextPicks = new ArrayList(getPicksWithDestination(activeContainer, activeContainer));
-                data.put("next", nextPicks.get(0));
-            }else{
-                nextPicks = new ArrayList(getPicksWithDestination(activeContainer+1, activeContainer+1));
-                data.put("active", picks.get(0));
-
-                data.put("next", nextPicks.get(0));
-            }
-        }
-        if (picks.size() > 1) {
-            data.put("active", picks.get(0));
-            data.put("next", picks.get(1));
+        if(skipFirst){
+            data.put("active", currentPicks.get(currentPicks.size()-1));
+            data.put("next", currentPicks.get(position));
+        }else{
+            data.put("active", currentPicks.get(position));
+            data.put("next", currentPicks.get(position + 1));
         }
         return data;
     }
 
     public Map<String, Pick> getNewData() {
         Map<String, Pick> data = new HashMap<String, Pick>();
-        if (!picks.isEmpty()) {
-            if (picks.size() >= 3) {
-                if (isNew) {
-                    data.put("active", picks.get(0));
-                    data.put("next", picks.get(1));
-                    isNew = false;
-
-                } else {
-                    data.put("active", picks.get(1));
-                    data.put("next", picks.get(2));
-                    picks.remove(0);
-                }
-
-            } else if (picks.size() == 2) {
-                if (isNew) {
-                    data.put("active", picks.get(0));
-                    data.put("next", picks.get(1));
-                    isNew = false;
-
-                } else {
-                    data.put("active", picks.get(1));
-                    getNextActiveContainer();
-                    picks = getPicksWithDestination(activeContainer, activeContainer);
-                    data.put("next", picks.get(0));
-                    isNew = true;
-
-                }
-            } else if (picks.size() == 1) {
-                if (isNew) {
-                    data.put("active", picks.get(0));
-                    isNew = true;
-                    if(picks.size() == 1){
-                        isNew = false;
-                    }
-                    getNextActiveContainer();
-                    picks = getPicksWithDestination(activeContainer, activeContainer);
-                    data.put("next", picks.get(0));
-
-                } else {
-                    getNextActiveContainer();
-                    picks = getPicksWithDestination(activeContainer, activeContainer);
-                    if (picks.size() > 1) {
-                        data.put("active", picks.get(0));
-                        data.put("next", picks.get(1));
-
-                    } else {
-                        data.put("active", picks.get(0));
-                        getNextActiveContainer();
-                        picks = getPicksWithDestination(activeContainer, activeContainer);
-                        data.put("next", picks.get(0));
-                        isNew = true;
-                    }
-                }
-            }
+        skipedBefore = false;
+        if(!skipFirst){
+            position++;
+        }else{
+            skipFirst = false;
+        }
+        //GET new data
+        if(position == currentPicks.size()-1){
+            data.put("active", currentPicks.get(position));
+            position = 0;
+            skipFirst = true;
+            data.put("next", currentPicks.get(position));
+        }else{
+            data.put("active", currentPicks.get(position));
+            data.put("next", currentPicks.get(position + 1));
         }
         return data;
     }
+
 }
 

@@ -32,7 +32,19 @@ public class PickResource {
         }
     }
 
+    @POST
+    @Path("/reverse")
+    @Produces("application/json")
+    public Response getLastPick() {
+        try {
+            return Response.ok().entity(WebDataBase.getInstance().getLastPick()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public static void main(String[] args) {
+        /*
         int active = 1;
         List<Pick> picks = WebDataBase.getInstance().getPicks(active);
         Map<String, Pick> data = new HashMap<String, Pick>();
@@ -54,5 +66,7 @@ public class PickResource {
             System.out.println("data");
             System.out.println(data);
         }
+
+         */
     }
 }

@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,11 +37,14 @@ public class IOAccess {
 
 
     public static void main(String[] args) {
+        /*
         List<Pick> picks = WebDataBase.getInstance().getPicks(1);
         Map<String, Pick> data = new HashMap<String, Pick>();
         data.put("active", picks.get(0));
         data.put("next", picks.get(1));
         System.out.println(data);
+
+         */
     }
 
 
