@@ -53,6 +53,15 @@ async function getNewData() {
         });
 }
 
+async function getLastPick() {
+    return fetch('./api/pick/reverse/', {method: 'POST',})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson
+        });
+}
+
+
 //display Data
 async function clearAll() {
     deleteLine();
@@ -70,7 +79,7 @@ async function clearAll() {
         document.getElementById('targetContainer' + i).classList.remove("active");
         document.getElementById('targetContainer' + i).classList.remove("next");
     }
-    document.getElementById("orderNumber").innerText = "Auftrag: ";
+    document.getElementById("orderNumber").innerText = "Auftrag:    ";
     document.getElementById("brand").innerText = " ";
     document.getElementById("productName").innerText = " ";
     document.getElementById("color").innerText = " ";
@@ -82,13 +91,13 @@ async function displayData(data) {
     let active = data.active;
     let next = data.next;
 
-    console.log(active);
+    //console.log(active);
     //active
     document.getElementById("amount" + active.destination).innerText = "x" + active.amount;
     document.getElementById("source" + active.destination).innerText = active.productName;
     document.getElementById("indicator" + active.source).innerText = active.productName;
 
-    document.getElementById("orderNumber").innerText += active.orderNumber;
+    document.getElementById("orderNumber").innerText = "Auftrag: " + active.orderNumber;
     document.getElementById("brand").innerText = active.productBrand;
     document.getElementById("productName").innerText = active.productName;
     document.getElementById("color").innerText = active.productColor;
@@ -118,8 +127,8 @@ async function nextPick() {
     displayData(await getNewData());
 }
 
-function returnPick(next) {
-
+async function reversPick() {
+    displayData(await getLastPick());
 }
 
 function repeatPick(next) {
