@@ -87,15 +87,28 @@
 }
 
 .issuebtn{
+    /*
     background-color: #B00020;
     box-shadow: rgba(176, 0, 32, .15) 0 4px 9px;
     color: #fff;
     padding: 18px 25px;
+
+     */
+    background-color: #ffffff;
+    box-shadow: rgba(255, 255, 255);
+    padding: 18px 25px;
+
+
 }
 .issuebtn:hover {
+    /*
     background-color: #d20028;
+
+     */
 }
 
 .issuebtn:hover {
-    box-shadow: rgba(176, 0, 32, .2) 0 6px 12px;
+    /* box-shadow: rgba(176, 0, 32, .2) 0 6px 12px;
+
+     */
 }

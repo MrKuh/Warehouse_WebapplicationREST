@@ -1,12 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/containers.css">
-    <link rel="stylesheet" href="css/detailView.css">
+    <link rel="stylesheet" href="css/detailview.css">
     <title>Interactive Warehouse Application</title>
 </head>
 
@@ -32,7 +31,7 @@
         </div>
         <div class="column right">
             <div class="detailView">
-                <h1 id="orderNumber">Auftrag: </h1>
+                <span class="heading" id="orderNumber">Auftrag:   </span>
                 <img id="detailPic" src="https://cdn-icons-png.flaticon.com/512/545/545546.png" alt="image" class="imgCenter"/>
                 <br>
                 <div class="detailViewValues" id="detailViewValues">
@@ -45,24 +44,27 @@
             <div class="actionButtons">
                 <div class="divButtons">
                 <button class="btn returnbtn"
+                        onclick="reversPick()"
                         role="button"><img
                         src="img/return256.png"
                         width="40px"
                         alt="Skip"/></button>
                 <button class="btn completebtn"
-                        onclick="nextPick('next')"
+                        onclick="nextPick()"
                         role="button">
                     <img
                         src="img/skip-next256.png"
                         width="60px"
-                        alt="Skip"/>
+                        alt="Complete"/>
                 </button>
                 
                 <button class="btn issuebtn"
-                        role="button"><img
-                        src="img/error-in-sync256.png"
+                        styles="visibility: hidden;"
+                        role="button" ><img
+                        src=""
                         width="40px"
-                        alt="Skip"/></button>
+                        alt=""
+                /></button>
             </div>
             </div>
         </div>
@@ -70,11 +72,9 @@
 </div>
     </div>
 </div>
-
 <script src="js/script.js"></script>
-<script src="js/wz_jsgraphics.js"></script>
+<script src="js/arrowLib.js"></script>
 <script src="js/arrow.js"></script>
-
 </body>
 </html>
 

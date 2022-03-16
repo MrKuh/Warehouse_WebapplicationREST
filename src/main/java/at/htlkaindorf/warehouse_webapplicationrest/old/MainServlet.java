@@ -1,4 +1,4 @@
-package at.htlkaindorf.warehouse_webapplicationrest;
+package at.htlkaindorf.warehouse_webapplicationrest.old;
 
 import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
 import jakarta.servlet.ServletException;
@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
         getServletContext().setAttribute("targetAmount", Integer.parseInt(config.get(1).split(":")[1]));
 
         //Data
-        is = getClass().getClassLoader().getResourceAsStream("testdata.csv");
+        is = getClass().getClassLoader().getResourceAsStream("old/testdata.csv");
         Stream<String> resources = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines();
         picks = resources.skip(1).map(Pick::fromString).collect(Collectors.toList());
         getServletContext().removeAttribute("picks");
