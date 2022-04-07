@@ -154,3 +154,20 @@ function repeatPick(next) {
 
 }
 
+var modal = document.getElementById("myModal");
+var popup = document.getElementById("popupB");
+var span = document.getElementsByClassName("close")[0];
+var returnButton = document.getElementById("returnbtn");
+var completeButton = document.getElementById("completebtn");
+
+popup.onclick = function () {
+    modal.style.display = "block";
+    returnButton.disabled = true;
+    completeButton.disabled = true;
+}
+span.onclick = function () {
+    modal.style.display = "none";
+    returnButton.disabled = false;
+    completeButton.disabled = false;
+}
+
