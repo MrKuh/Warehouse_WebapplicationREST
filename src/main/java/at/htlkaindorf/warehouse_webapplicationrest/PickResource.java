@@ -43,6 +43,17 @@ public class PickResource {
         }
     }
 
+    @PUT
+    @Path("/setSummary")
+    public Response setSummary() {
+        try {
+            WebDataBase.getInstance().setSummary(true);
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public static void main(String[] args) {
         /*
         int active = 1;

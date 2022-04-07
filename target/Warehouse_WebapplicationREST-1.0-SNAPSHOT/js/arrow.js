@@ -59,7 +59,7 @@ function getCoords(source, target) {
         target.getBoundingClientRect().x, target.getBoundingClientRect().y,
         source.getBoundingClientRect().width, source.getBoundingClientRect().height,
         target.getBoundingClientRect().width, target.getBoundingClientRect().height];
-    console.log(coords);
+    //console.log(coords);
 
     return coords;
 }

@@ -52,6 +52,9 @@ async function getNewData() {
             return responseJson
         });
 }
+async function setSummary() {
+    return fetch('./api/pick/setSummary/', {method: 'PUT',});
+}
 
 async function getLastPick() {
     return fetch('./api/pick/reverse/', {method: 'POST',})
@@ -90,6 +93,7 @@ async function displayData(data) {
     await clearAll();
     let active = data.active;
     let next = data.next;
+    console.log(typeof data);
 
     //console.log(active);
     //active
@@ -119,12 +123,27 @@ async function displayData(data) {
     }
     drawNext(document.getElementById('sourceContainer' + next.source),
         document.getElementById('targetContainer' + next.destination));
+}
+
+async function displaySummary(data){
+    console.log(data);
 
 }
 
 //Buttons
 async function nextPick() {
-    displayData(await getNewData());
+    var data = await getNewData();
+    console.log("data");
+    console.log(data);
+
+    if(data.complete0 == null){
+        setSummary();
+        displayData(data);
+    }else{
+        displaySummary(data);
+
+    }
+    //displayData(await getNewData());
 }
 
 async function reversPick() {

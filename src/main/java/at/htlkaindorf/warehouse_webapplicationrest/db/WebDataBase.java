@@ -16,6 +16,8 @@ public class WebDataBase {
     private int position;
     private boolean skipFirst;
     private boolean skipedBefore;
+    private boolean summary;
+
 
     private WebDataBase() {
         //init destinations
@@ -39,7 +41,9 @@ public class WebDataBase {
         //init data loop
         position = 0;
         skipFirst = false;
-        skipedBefore =false;
+        skipedBefore = false;
+        summary = true;
+        currentOrderNumber = 0;
     }
 
     public synchronized static WebDataBase getInstance() {
@@ -53,13 +57,13 @@ public class WebDataBase {
         return currentPicks;
     }
 
-    public Map<String, Pick> getLastPick(){
+    public Map<String, Pick> getLastPick() {
         Map<String, Pick> data = new HashMap<String, Pick>();
-        if(!skipedBefore && position != 0){
+        if (!skipedBefore && position != 0) {
             position--;
             data.put("active", currentPicks.get(position));
             data.put("next", currentPicks.get(position + 1));
-        }else{
+        } else {
             data.put("active", currentPicks.get(position));
             data.put("next", currentPicks.get(position + 1));
         }
@@ -71,10 +75,10 @@ public class WebDataBase {
 
     public Map<String, Pick> getData() {
         Map<String, Pick> data = new HashMap<String, Pick>();
-        if(skipFirst){
-            data.put("active", currentPicks.get(currentPicks.size()-1));
+        if (skipFirst) {
+            data.put("active", currentPicks.get(currentPicks.size() - 1));
             data.put("next", currentPicks.get(position));
-        }else{
+        } else {
             data.put("active", currentPicks.get(position));
             data.put("next", currentPicks.get(position + 1));
         }
@@ -84,23 +88,58 @@ public class WebDataBase {
     public Map<String, Pick> getNewData() {
         Map<String, Pick> data = new HashMap<String, Pick>();
         skipedBefore = false;
-        if(!skipFirst){
+
+        if (!skipFirst) {
             position++;
-        }else{
+
+            if (summary) {
+                data = checkOrderComplete();
+                if (data.size() > 0) {
+                    summary = false;
+                    position--;
+                    return data;
+                } else {
+                    summary = true;
+                }
+            }
+
+
+        } else {
             skipFirst = false;
         }
+
         //GET new data
-        if(position == currentPicks.size()-1){
+        if (position == currentPicks.size() - 1) {
             data.put("active", currentPicks.get(position));
             position = 0;
             skipFirst = true;
             data.put("next", currentPicks.get(position));
-        }else{
+        } else {
             data.put("active", currentPicks.get(position));
             data.put("next", currentPicks.get(position + 1));
         }
         return data;
     }
 
+    public Map<String, Pick> checkOrderComplete() {
+        Map<String, Pick> data = new HashMap<String, Pick>();
+        if (currentPicks.get(position).getOrderNumber() == currentPicks.get(position - 1).getOrderNumber()) {
+            return data;
+        }
+
+        int completeOrderNumber = currentPicks.get(position - 1).getOrderNumber();
+
+        for (int i = 0; i < currentPicks.size(); i++) {
+            if (currentPicks.get(i).getOrderNumber() == completeOrderNumber) {
+                data.put("complete" + data.size(), currentPicks.get(i));
+            }
+        }
+
+        return data;
+    }
+
+    public void setSummary(boolean summary) {
+        this.summary = summary;
+    }
 }
 
