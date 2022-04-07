@@ -56,6 +56,11 @@ async function setSummary() {
     return fetch('./api/pick/setSummary/', {method: 'PUT',});
 }
 
+async function skipOrder() {
+    await fetch('./api/pick/skipOrder/', {method: 'PUT',});
+    await nextPick();
+}
+
 async function getLastPick() {
     return fetch('./api/pick/reverse/', {method: 'POST',})
         .then((response) => response.json())
