@@ -51,7 +51,7 @@
 
 .amount {
     font-size: 30px;
-    color: #5999E4;
+    color: #e700ff;
 }
 
 .source {
@@ -70,7 +70,7 @@
 }
 
 .active {
-    border: 5px solid #2F7AE5;
+    border: 5px solid #e700ff;
 
 }
 
