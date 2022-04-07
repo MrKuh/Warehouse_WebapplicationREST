@@ -126,15 +126,21 @@ async function displayData(data) {
 }
 
 async function displaySummary(data){
-    console.log(data);
+    //console.log(data);
+    for (var prop in data) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+            // do stuff
+            console.log(productName);
+        }
+    }
 
 }
 
 //Buttons
 async function nextPick() {
     var data = await getNewData();
-    console.log("data");
-    console.log(data);
+    //console.log("data");
+    //console.log(data);
 
     if(data.complete0 == null){
         setSummary();
