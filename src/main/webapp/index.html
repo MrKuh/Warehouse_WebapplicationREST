@@ -11,7 +11,7 @@
 </head>
 
 <body onload="load()">
-<div id="active" styles="z-index: 2"a>
+<div id="active" styles="z-index: 2" a>
     <div id="next" styles="z-index: 3">
 <div class="container">
     <div>
@@ -28,60 +28,62 @@
         <div class="column left">
             <div class="sourceContainerRow" id="sourceContainerRow">
 
-            </div>
+                    </div>
 
-            <div class="arrowRow">
+                    <div class="arrowRow">
 
-            </div>
+                    </div>
 
 
-            <div class="targetContainerRow" id="targetContainerRow">
+                    <div class="targetContainerRow" id="targetContainerRow">
 
-            </div>
+                    </div>
 
-        </div>
-        <div class="column right">
-            <div class="detailView">
-                <span class="heading" id="orderNumber">Auftrag:   </span>
-                <img id="detailPic" src="https://cdn-icons-png.flaticon.com/512/545/545546.png" alt="image" class="imgCenter"/>
-                <br>
-                <div class="detailViewValues" id="detailViewValues">
-                    <span>Marke:</span><span id="brand"> </span>
-                    <span>Produkt:</span><span id="productName"> </span>
-                    <span>Farbe:</span><span id="color"> </span>
-                    <span>Größe:</span><span id="size"> </span>
+                </div>
+                <div class="column right">
+                    <div class="detailView">
+                        <span class="heading" id="orderNumber">Auftrag:   </span>
+                        <img id="detailPic" src="https://cdn-icons-png.flaticon.com/512/545/545546.png" alt="image"
+                             class="imgCenter"/>
+                        <br>
+                        <div class="detailViewValues" id="detailViewValues">
+                            <span>Marke:</span><span id="brand"> </span>
+                            <span>Produkt:</span><span id="productName"> </span>
+                            <span>Farbe:</span><span id="color"> </span>
+                            <span>Größe:</span><span id="size"> </span>
+                        </div>
+                    </div>
+                    <div class="actionButtons">
+                        <div class="divButtons">
+                            <button id="popupB">PopUp</button>
+                            <button id="returnbtn" class="btn returnbtn"
+                                    onclick="reversPick()"
+                                    role="button"><img
+                                    src="img/return256.png"
+                                    width="40px"
+                                    alt="Skip"/></button>
+                            <button id="completebtn" class="btn completebtn"
+                                    onclick="nextPick()"
+                                    role="button">
+                                <img
+                                        src="img/skip-next256.png"
+                                        width="60px"
+                                        alt="Complete"/>
+                            </button>
+
+                            <button class="btn issuebtn"
+                                    onclick="skipOrder()"
+                                    role="button">
+                                <img
+                                        src="img/error-in-sync256.png"
+                                        width="40px"
+                                        alt="Pain."/>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="actionButtons">
-                <div class="divButtons">
-                    <button id="popupB">PopUp</button>
-                <button id="returnbtn" class="btn returnbtn"
-                        onclick="reversPick()"
-                        role="button"><img
-                        src="img/return256.png"
-                        width="40px"
-                        alt="Skip"/></button>
-                <button id="completebtn" class="btn completebtn"
-                        onclick="nextPick()"
-                        role="button">
-                    <img
-                        src="img/skip-next256.png"
-                        width="60px"
-                        alt="Complete"/>
-                </button>
-
-                <button class="btn issuebtn"
-                        styles="visibility: hidden;"
-                        role="button" ><img
-                        src=""
-                        width="40px"
-                        alt=""
-                /></button>
-            </div>
-            </div>
         </div>
-    </div>
-</div>
     </div>
 </div>
 

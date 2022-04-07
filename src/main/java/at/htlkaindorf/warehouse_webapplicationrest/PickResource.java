@@ -54,6 +54,17 @@ public class PickResource {
         }
     }
 
+    @PUT
+    @Path("/skipOrder")
+    public Response skipOrder() {
+        try {
+            WebDataBase.getInstance().cancelOrderData();
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     public static void main(String[] args) {
         /*
         int active = 1;
