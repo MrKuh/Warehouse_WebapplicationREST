@@ -126,14 +126,14 @@ public class WebDataBase {
 
         int currentIndex = position;
 
-        toMovePicks.add(currentPicks.remove(currentIndex));
+        toMovePicks.add(currentPicks.get(currentIndex));
 
 
         int moveOrderNumber = toMovePicks.get(0).getOrderNumber();
         int moveDestination = toMovePicks.get(0).getDestination();
 
         while(currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber){
-            toMovePicks.add(0,currentPicks.remove(currentIndex));
+            toMovePicks.add(0,currentPicks.remove(currentIndex+1));
         }
         currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
 
