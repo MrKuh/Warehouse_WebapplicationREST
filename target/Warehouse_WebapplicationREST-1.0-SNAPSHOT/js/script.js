@@ -134,6 +134,17 @@ async function displaySummary(data){
         }
     }
 
+
+    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data.complete0.orderNumber;
+
+    for (let i = 0; i < data.length+1; i++) {
+        console.log(data[i]);
+
+        document.getElementById("modal_info").innerHTML =
+            "<span>" + data[i].amount + "1x</span><span id=\"brand\">" + data.complete[i].productName + "nigga</span>  \n"
+    }
+
+
 }
 
 //Buttons
@@ -159,4 +170,23 @@ async function reversPick() {
 function repeatPick(next) {
 
 }
+
+var modal = document.getElementById("myModal");
+var popup = document.getElementById("popupB");
+var span = document.getElementsByClassName("close")[0];
+var returnButton = document.getElementById("returnbtn");
+var completeButton = document.getElementById("completebtn");
+
+popup.onclick = function () {
+    modal.style.display = "block";
+    returnButton.disabled = true;
+    completeButton.disabled = true;
+}
+span.onclick = function () {
+    modal.style.display = "none";
+    returnButton.disabled = false;
+    completeButton.disabled = false;
+}
+
+
 

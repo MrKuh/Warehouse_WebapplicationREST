@@ -121,13 +121,13 @@ public class WebDataBase {
         return data;
     }
 
-    public Map<String, Pick> cancelOrderData(){
-        Map<String, Pick> data = new HashMap<String, Pick>();
+    public void cancelOrderData(){
         List<Pick> toMovePicks = new ArrayList<>();
 
         int currentIndex = position;
 
         toMovePicks.add(currentPicks.remove(currentIndex));
+
 
         int moveOrderNumber = toMovePicks.get(0).getOrderNumber();
         int moveDestination = toMovePicks.get(0).getDestination();
@@ -135,6 +135,7 @@ public class WebDataBase {
         while(currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber){
             toMovePicks.add(0,currentPicks.remove(currentIndex));
         }
+        currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
 
         while(currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex < currentPicks.size()){
             currentIndex++;
@@ -144,11 +145,6 @@ public class WebDataBase {
             currentPicks.add(currentIndex,insertPick);
         }
 
-        //Nicht fertig!
-        //Picks werden nach hinten geschoben (nicht getestet)
-        //Muss noch nächsten Pick anzeigen (evtl. einfach andere Methode aufrufen)
-
-        return data;
     }
 
     public Map<String, Pick> checkOrderComplete() {
