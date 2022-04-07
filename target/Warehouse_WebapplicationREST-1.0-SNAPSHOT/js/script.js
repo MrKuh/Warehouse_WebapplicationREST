@@ -128,6 +128,17 @@ async function displayData(data) {
 async function displaySummary(data){
     console.log(data);
 
+
+    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data.complete0.orderNumber;
+
+    for (let i = 0; i < data.length+1; i++) {
+        console.log(data[i]);
+
+        document.getElementById("modal_info").innerHTML =
+            "<span>" + data[i].amount + "1x</span><span id=\"brand\">" + data.complete[i].productName + "nigga</span>  \n"
+    }
+
+
 }
 
 //Buttons
@@ -170,4 +181,6 @@ span.onclick = function () {
     returnButton.disabled = false;
     completeButton.disabled = false;
 }
+
+
 
