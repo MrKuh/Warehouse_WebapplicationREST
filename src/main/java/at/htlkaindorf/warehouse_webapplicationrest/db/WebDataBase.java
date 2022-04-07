@@ -132,12 +132,14 @@ public class WebDataBase {
         int moveOrderNumber = toMovePicks.get(0).getOrderNumber();
         int moveDestination = toMovePicks.get(0).getDestination();
 
-        while(currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber){
-            toMovePicks.add(0,currentPicks.remove(currentIndex+1));
-        }
-        currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
+        currentIndex++;
 
-        while(currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex < currentPicks.size()){
+        while(currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber){
+            toMovePicks.add(0,currentPicks.remove(currentIndex));
+        }
+        //currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
+
+        while(currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex <= currentPicks.size()){
             currentIndex++;
         }
 
