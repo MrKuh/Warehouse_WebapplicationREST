@@ -47,7 +47,7 @@ public class PickResource {
     @Path("/setSummary")
     public Response setSummary() {
         try {
-            WebDataBase.getInstance().setSummary(true);
+            WebDataBase.getInstance().setSummary();
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

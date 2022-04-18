@@ -52,8 +52,20 @@ async function getNewData() {
             return responseJson
         });
 }
+async function getSummary() {
+    return fetch('./api/pick/getSummary/', {method: 'POST',})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson
+        });
+}
 async function setSummary() {
     return fetch('./api/pick/setSummary/', {method: 'PUT',});
+}
+
+async function skipOrder() {
+    await fetch('./api/pick/skipOrder/', {method: 'PUT',});
+    await nextPick();
 }
 
 async function getLastPick() {
@@ -91,11 +103,9 @@ async function clearAll() {
 
 async function displayData(data) {
     await clearAll();
-    let active = data.active;
-    let next = data.next;
-    console.log(typeof data);
+    let active = data[0];
+    let next = data[1];
 
-    //console.log(active);
     //active
     document.getElementById("amount" + active.destination).innerText = "x" + active.amount;
     document.getElementById("source" + active.destination).innerText = active.productName;
@@ -126,38 +136,29 @@ async function displayData(data) {
 }
 
 async function displaySummary(data){
-    //console.log(data);
-    for (var prop in data) {
-        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-            // do stuff
-            console.log(productName);
-        }
-    }
-
-
-    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data.complete0.orderNumber;
+    alert(data);
+    /*
+    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data[0].orderNumber;
 
     for (let i = 0; i < data.length+1; i++) {
-        console.log(data[i]);
 
         document.getElementById("modal_info").innerHTML =
             "<span>" + data[i].amount + "1x</span><span id=\"brand\">" + data.complete[i].productName + "nigga</span>  \n"
     }
 
-
+     */
 }
 
 //Buttons
 async function nextPick() {
-    var data = await getNewData();
-    //console.log("data");
-    //console.log(data);
-
-    if(data.complete0 == null){
+    var summary = await getSummary();
+    if(summary.length == 0) {
+        var data = await getNewData();
         setSummary();
         displayData(data);
     }else{
-        displaySummary(data);
+        //console.log(summary);
+        displaySummary(summary);
 
     }
     //displayData(await getNewData());

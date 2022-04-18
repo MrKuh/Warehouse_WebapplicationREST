@@ -103,11 +103,9 @@ async function clearAll() {
 
 async function displayData(data) {
     await clearAll();
-    let active = data.active;
-    let next = data.next;
-    console.log(typeof data);
+    let active = data[0];
+    let next = data[1];
 
-    //console.log(active);
     //active
     document.getElementById("amount" + active.destination).innerText = "x" + active.amount;
     document.getElementById("source" + active.destination).innerText = active.productName;
@@ -138,16 +136,9 @@ async function displayData(data) {
 }
 
 async function displaySummary(data){
-    //console.log(data);
-    for (var prop in data) {
-        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-            // do stuff
-            console.log(productName);
-        }
-    }
-
-
-    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data.complete0.orderNumber;
+    alert(data);
+    /*
+    document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data[0].orderNumber;
 
     for (let i = 0; i < data.length+1; i++) {
 
@@ -155,23 +146,19 @@ async function displaySummary(data){
             "<span>" + data[i].amount + "1x</span><span id=\"brand\">" + data.complete[i].productName + "nigga</span>  \n"
     }
 
-
+     */
 }
 
 //Buttons
 async function nextPick() {
-
     var summary = await getSummary();
-    //console.log("data");
-    console.log(summary.length);
-
-    if(summary === null){
+    if(summary.length == 0) {
         var data = await getNewData();
         setSummary();
         displayData(data);
     }else{
-        console.log(summary);
-        //displaySummary(summary);
+        //console.log(summary);
+        displaySummary(summary);
 
     }
     //displayData(await getNewData());
