@@ -54,6 +54,17 @@ public class PickResource {
         }
     }
 
+    @POST
+    @Path("/getSummary")
+    @Produces("application/json")
+    public Response getSummary() {
+        try {
+            return Response.ok().entity(WebDataBase.getInstance().getSummary()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PUT
     @Path("/skipOrder")
     public Response skipOrder() {

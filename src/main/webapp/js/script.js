@@ -52,6 +52,13 @@ async function getNewData() {
             return responseJson
         });
 }
+async function getSummary() {
+    return fetch('./api/pick/getSummary/', {method: 'POST',})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson
+        });
+}
 async function setSummary() {
     return fetch('./api/pick/setSummary/', {method: 'PUT',});
 }
@@ -153,15 +160,18 @@ async function displaySummary(data){
 
 //Buttons
 async function nextPick() {
-    var data = await getNewData();
-    //console.log("data");
-    //console.log(data);
 
-    if(data.complete0 == null){
+    var summary = await getSummary();
+    //console.log("data");
+    console.log(summary.length);
+
+    if(summary === null){
+        var data = await getNewData();
         setSummary();
         displayData(data);
     }else{
-        displaySummary(data);
+        console.log(summary);
+        //displaySummary(summary);
 
     }
     //displayData(await getNewData());

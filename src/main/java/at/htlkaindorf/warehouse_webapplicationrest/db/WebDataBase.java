@@ -91,7 +91,7 @@ public class WebDataBase {
 
         if (!skipFirst) {
             position++;
-
+/*
             if (summary) {
                 data = checkOrderComplete();
                 if (data.size() > 0) {
@@ -102,6 +102,8 @@ public class WebDataBase {
                     summary = true;
                 }
             }
+
+ */
 
 
         } else {
@@ -121,7 +123,7 @@ public class WebDataBase {
         return data;
     }
 
-    public void cancelOrderData(){
+    public void cancelOrderData() {
         List<Pick> toMovePicks = new ArrayList<>();
 
         int currentIndex = position;
@@ -134,17 +136,17 @@ public class WebDataBase {
 
         currentIndex++;
 
-        while(currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber){
-            toMovePicks.add(0,currentPicks.remove(currentIndex));
+        while (currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber) {
+            toMovePicks.add(0, currentPicks.remove(currentIndex));
         }
         //currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
 
-        while(currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex <= currentPicks.size()){
+        while (currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex <= currentPicks.size()) {
             currentIndex++;
         }
 
-        for (Pick insertPick:toMovePicks) {
-            currentPicks.add(currentIndex,insertPick);
+        for (Pick insertPick : toMovePicks) {
+            currentPicks.add(currentIndex, insertPick);
         }
 
     }
@@ -162,7 +164,20 @@ public class WebDataBase {
                 data.put("complete" + data.size(), currentPicks.get(i));
             }
         }
+        return data;
+    }
 
+    public Map<String, Pick> getSummary() {
+        Map<String, Pick> data = new HashMap<String, Pick>();
+        if (currentPicks.get(position + 1).getOrderNumber() != currentPicks.get(position).getOrderNumber()) {
+            int completeOrderNumber = currentPicks.get(position - 1).getOrderNumber();
+
+            for (int i = 0; i < currentPicks.size(); i++) {
+                if (currentPicks.get(i).getOrderNumber() == completeOrderNumber) {
+                    data.put("complete" + data.size(), currentPicks.get(i));
+                }
+            }
+        }
         return data;
     }
 
