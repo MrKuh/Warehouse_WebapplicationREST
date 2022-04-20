@@ -3,7 +3,6 @@ async function load() {
     initContainer();
     displayData(await getData());
 
-
 }
 //set container layout
 async function initContainer() {
@@ -136,17 +135,22 @@ async function displayData(data) {
 }
 
 async function displaySummary(data){
-    alert(data);
-    /*
+    console.log(data);
+
     document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data[0].orderNumber;
 
-    for (let i = 0; i < data.length+1; i++) {
-
-        document.getElementById("modal_info").innerHTML =
-            "<span>" + data[i].amount + "1x</span><span id=\"brand\">" + data.complete[i].productName + "nigga</span>  \n"
+    if(document.getElementById("modal_info").innerHTML != ""){
+        document.getElementById("modal_info").innerHTML = "";
     }
 
-     */
+    document.getElementById("modal_info").innerHTML = "<hr style='width: 100%; height: 2px'>"
+
+    for (var i = 0; i < data.length; i++) {
+        document.getElementById("modal_info").innerHTML +=
+            "<span>" + data[i].amount + "x</span> <span>" +
+            data[i].productBrand + ", " + data[i].productName + " (" + data[i].productColor + ")</span> <br>" +
+            "<hr style='width: 100%'>"
+    }
 }
 
 //Buttons
@@ -160,6 +164,9 @@ async function nextPick() {
         //console.log(summary);
         displaySummary(summary);
 
+        modal.style.display = "block";
+        returnButton.disabled = true;
+        completeButton.disabled = true;
     }
     //displayData(await getNewData());
 }
@@ -178,11 +185,6 @@ var span = document.getElementsByClassName("close")[0];
 var returnButton = document.getElementById("returnbtn");
 var completeButton = document.getElementById("completebtn");
 
-popup.onclick = function () {
-    modal.style.display = "block";
-    returnButton.disabled = true;
-    completeButton.disabled = true;
-}
 span.onclick = function () {
     modal.style.display = "none";
     returnButton.disabled = false;

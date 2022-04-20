@@ -15,7 +15,7 @@ button {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-content{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -23,7 +23,6 @@ button {
     width:  35%;
     height: 90%;
     font-size: 20px;
-    text-align: center;
 }
 
 .close {
@@ -39,3 +38,15 @@ button {
     text-decoration: none;
     cursor: pointer;
 }
+
+#modal_header {
+    margin: auto;
+    text-align: center;
+}
+
+#modal_info {
+    margin-left: 20px;
+    font-size: 22px;
+    text-align: left;
+}
+
