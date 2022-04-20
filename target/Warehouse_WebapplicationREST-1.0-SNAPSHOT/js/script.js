@@ -12,7 +12,9 @@ async function initContainer() {
 
     for (let i = 1; i < config.sourceAmount + 1; i++) {
         sourceContainerRow.innerHTML += '<div class=\"sourceContainer\" id=\"sourceContainer' + i + '\">\n' +
+            '<span class=\"amount\" id=\"amount' + i + '\"></span>\n' +
             '<span class=\"indicator\" id=\"indicator' + i + '\"></span>\n' +
+            '<span></span>\n' +
             '</div>';
     }
 
@@ -20,7 +22,7 @@ async function initContainer() {
     targetContainerRow.style.gridTemplateColumns = "repeat(" + config.targetAmount + ", 1fr)";
     for (let i = 1; i < config.targetAmount + 1; i++) {
         targetContainerRow.innerHTML += "<div class=\"targetContainer\" id=\"targetContainer" + i + "\">\n" +
-            "                    <span class=\"amount\" id=\"amount" + i + "\"> </span>\n" +
+            "                    <span> </span>\n" +
             "                    <span class=\"source\" id=\"source" + i + "\"> </span>\n" +
             "                    <span class=\"nextSource\" id=\"nextSource" + i + "\"> </span>\n" +
             "                </div>";
@@ -82,12 +84,12 @@ async function clearAll() {
     var config = await loadConfig();
     for (let i = 1; i < config.sourceAmount + 1; i++) {
         document.getElementById("indicator" + i).innerText = " ";
+        document.getElementById("amount" + i).innerText = " ";
         document.getElementById('sourceContainer' + i).classList.remove("active");
         document.getElementById('sourceContainer' + i).classList.remove("next");
 
     }
     for (let i = 1; i < config.targetAmount + 1; i++) {
-        document.getElementById("amount" + i).innerText = " ";
         document.getElementById("source" + i).innerText = " ";
         document.getElementById("nextSource" + i).innerText = " ";
         document.getElementById('targetContainer' + i).classList.remove("active");
@@ -106,9 +108,10 @@ async function displayData(data) {
     let next = data[1];
 
     //active
-    document.getElementById("amount" + active.destination).innerText = "x" + active.amount;
     document.getElementById("source" + active.destination).innerText = active.productName;
+    document.getElementById("amount" + active.source).innerText = "x" + active.amount;
     document.getElementById("indicator" + active.source).innerText = active.productName;
+
 
     document.getElementById("orderNumber").innerText = "Auftrag: " + active.orderNumber;
     document.getElementById("brand").innerText = active.productBrand;
@@ -186,6 +189,13 @@ var returnButton = document.getElementById("returnbtn");
 var completeButton = document.getElementById("completebtn");
 
 span.onclick = function () {
+    modal.style.display = "none";
+    returnButton.disabled = false;
+    completeButton.disabled = false;
+    nextPick();
+}
+
+function acceptSummary(){
     modal.style.display = "none";
     returnButton.disabled = false;
     completeButton.disabled = false;

@@ -10,7 +10,8 @@ function drawActive(source, target){
 
     help = 0.8
 
-    jg.setColor("#e700ff"); // lila
+    jg.setColor("#b200bd"); // lila
+    //#e700ff
     jg.setStroke(6);
 
     jg.drawLine(coords[0] + coords[4] / 2, coords[1] + coords[5], coords[0] + coords[4] / 2,
