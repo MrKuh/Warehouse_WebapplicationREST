@@ -17,6 +17,7 @@ public class WebDataBase {
     private boolean skipFirst;
     private boolean skipedBefore;
     private boolean summary;
+    private boolean last;
 
 
     private WebDataBase() {
@@ -41,6 +42,7 @@ public class WebDataBase {
         //init data loop
         position = 0;
         skipFirst = false;
+        last = false;
         skipedBefore = false;
         summary = true;
         currentOrderNumber = 0;
@@ -117,6 +119,7 @@ public class WebDataBase {
             data.add(currentPicks.get(position));
             position = 0;
             skipFirst = true;
+            last = true;
             //data.put("next", currentPicks.get(position));
             data.add(currentPicks.get(position));
         } else {
@@ -164,6 +167,17 @@ public class WebDataBase {
             }
             summary = false;
         }
+        if(last){
+            last = false;
+            int completeOrderNumber = currentPicks.get(currentPicks.size() - 1).getOrderNumber();
+            for (int i = 0; i < currentPicks.size(); i++) {
+                if (currentPicks.get(i).getOrderNumber() == completeOrderNumber) {
+                    data.add(currentPicks.get(i));
+                }
+            }
+            summary = false;
+        }
+
         return data;
     }
 

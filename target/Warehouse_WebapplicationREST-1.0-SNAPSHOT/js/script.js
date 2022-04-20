@@ -156,7 +156,6 @@ async function displaySummary(data){
 //Buttons
 async function nextPick() {
     var summary = await getSummary();
-    let count = 0;
     if(summary.length == 0) {
         var data = await getNewData();
         setSummary();
@@ -190,6 +189,7 @@ span.onclick = function () {
     modal.style.display = "none";
     returnButton.disabled = false;
     completeButton.disabled = false;
+    nextPick();
 }
 
 

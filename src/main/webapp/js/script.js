@@ -189,6 +189,7 @@ span.onclick = function () {
     modal.style.display = "none";
     returnButton.disabled = false;
     completeButton.disabled = false;
+    nextPick();
 }
 
 
