@@ -64,7 +64,7 @@ async function setSummary() {
 
 async function skipOrder() {
     await fetch('./api/pick/skipOrder/', {method: 'PUT',});
-    await nextPick();
+    displayData(await getData());
 }
 
 async function getLastPick() {

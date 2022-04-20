@@ -135,16 +135,15 @@ public class WebDataBase {
         List<Pick> toMovePicks = new ArrayList<>();
         int currentIndex = position;
 
-        toMovePicks.add(currentPicks.get(currentIndex));
+        toMovePicks.add(currentPicks.remove(currentIndex));
 
         int moveOrderNumber = toMovePicks.get(0).getOrderNumber();
         int moveDestination = toMovePicks.get(0).getDestination();
 
-        currentIndex++;
         while (currentPicks.get(currentIndex).getOrderNumber() == moveOrderNumber) {
             toMovePicks.add(0, currentPicks.remove(currentIndex));
         }
-        //currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
+        currentOrderNumber = currentPicks.get(currentIndex).getOrderNumber();
 
         while (currentPicks.get(currentIndex).getDestination() != moveDestination && currentIndex <= currentPicks.size()) {
             currentIndex++;
