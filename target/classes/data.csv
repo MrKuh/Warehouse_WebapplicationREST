@@ -1,9 +1,9 @@
 Auftragsnummer;Quellbehälter;Anzahl;Marke;Name;Farbe;Groeße;Pic URL
-1201;1;1;Nike;Air Force 1;Weiß;46;--
-1201;1;1;Carhartt WIP;Cargo;Beige;XL;--
-1201;1;1;LFDY;Pullover;Schwarz;L;--
+1201;4;1;Nike;Air Force 1;Weiß;46;--
+1201;3;1;Carhartt WIP;Cargo;Beige;XL;--
+1201;2;1;LFDY;Pullover;Schwarz;L;--
 1202;1;1;Adidas;NMD R1;Weiß;46;--
-1202;1;1;Y&H;T-Shirt;Schwarz;46;--
+1202;2;1;Y&H;T-Shirt;Schwarz;46;--
 1203;4;1;Alpha Industries;Pullover;Weiß;XL;--
 1203;1;2;Tommy Jeans;Hemd;Blau;L;--
 1203;3;1;Pull&Bear;T-Shirt;Schwarz;L;--
