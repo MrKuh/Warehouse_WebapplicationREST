@@ -114,10 +114,9 @@ public class WebDataBase {
         }
 
         //GET new data
-        if (position == currentPicks.size() - 1) {
+        if (position == currentPicks.size()) {
             //data.put("active", currentPicks.get(position));
             data.add(currentPicks.get(position));
-            position = 0;
             skipFirst = true;
             last = true;
             //data.put("next", currentPicks.get(position));
@@ -132,6 +131,7 @@ public class WebDataBase {
     }
 
     public void cancelOrderData() {
+        skipedBefore = true;
         List<Pick> toMovePicks = new ArrayList<>();
         int currentIndex = position;
 
@@ -155,6 +155,7 @@ public class WebDataBase {
     }
 
     public List<Pick> getSummary() {
+        skipedBefore = false;
         List<Pick> data = new ArrayList<>();
         if (summary && position > 0 && currentPicks.get(position + 1).getOrderNumber() != currentPicks.get(position).getOrderNumber()) {
             int completeOrderNumber = currentPicks.get(position).getOrderNumber();
@@ -166,6 +167,7 @@ public class WebDataBase {
             }
             summary = false;
         }
+
         if(last){
             last = false;
             int completeOrderNumber = currentPicks.get(currentPicks.size() - 1).getOrderNumber();
@@ -178,6 +180,113 @@ public class WebDataBase {
         }
 
         return data;
+    }
+    public int getFirstIndexByOrderNumber(int orderNumber){
+        for (Pick pick:currentPicks) {
+            if(pick.getOrderNumber() == orderNumber){
+                System.out.println("getFirstIndexByOrderNumber");
+                System.out.println(currentPicks.indexOf(pick));
+                return currentPicks.indexOf(pick);
+            }
+        }
+        return -1;
+    }
+
+    public int getLastIndexByOrderNumber(int orderNumber) {
+        for (int i = currentPicks.size() - 1; i >= 0; i--) {
+            if (currentPicks.get(i).getOrderNumber() == orderNumber) {
+                System.out.println("getLastIndexByOrderNumber");
+                System.out.println(i);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public String redoPicks(ArrayList<Integer> picks){
+        int orderNumber = currentPicks.get(position).getOrderNumber();
+        int firstIndex = getFirstIndexByOrderNumber(currentPicks.get(position).getOrderNumber());
+        int lastIndex = getLastIndexByOrderNumber(currentPicks.get(position).getOrderNumber());
+
+        String  str = "";
+        for (Pick pick:currentPicks) {
+            str += pick.getProductName();
+            str += "\n";
+        }
+        System.out.println(str);
+
+        System.out.println(position);
+        List<Pick> picksToMove = new ArrayList<>();
+        for(int i = lastIndex;i>=firstIndex;i--){
+            if(picks.contains(i-firstIndex)){
+                picksToMove.add(currentPicks.remove(i));
+                position--;
+
+            }
+        }
+        position++;
+        for (Pick pick:picksToMove) {
+            currentPicks.add(position,pick);
+        }
+        position--;
+
+
+        // c d e  f g
+
+        str = "";
+        for (Pick pick:currentPicks) {
+            str += pick.getProductName();
+            str += "\n";
+        }
+        System.out.println(str);
+
+
+
+
+
+
+        /*
+        System.out.println(picks.size());
+        System.out.println(picks.get(0));
+        System.out.println(picks.get(1));
+        System.out.println(position);
+        System.out.println(orderNumber);
+        System.out.println("---------");
+        System.out.println(index);
+
+        System.out.println(currentPicks.toString());
+
+        String  str = "";
+        for (Pick pick:currentPicks) {
+            str += pick.getProductName();
+            str += "\n";
+        }
+        System.out.println(str);
+        str = "";
+
+
+        System.out.println("position : " + position);
+        for (Pick pick:picksToMove) {
+            str += pick.getProductName();
+            str += "\n";
+        }
+
+        System.out.println(str);
+        currentPicks.addAll(position, picksToMove);
+
+        for (Pick pick:currentPicks) {
+            str += pick.getProductName();
+            str += "\n";
+        }
+        System.out.println(str);
+        str = "";
+
+
+
+
+
+         */
+        return "";
     }
 
     public void setSummary() {

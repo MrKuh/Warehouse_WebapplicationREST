@@ -4,6 +4,40 @@ async function load() {
     displayData(await getData());
 
 }
+
+//reload
+let innerHeight = window.innerHeight;
+let innerWidth = window.innerWidth;
+
+let active;
+let next;
+
+window.addEventListener('resize', reportWindowSize);
+
+function difference(a, b) {
+    return Math.abs(a - b);
+}
+
+
+function reportWindowSize() {
+    if (Math.abs(innerHeight - window.innerHeight) > 10 || Math.abs(innerWidth - window.innerWidth) > 10) {
+        console.log(window.innerHeight);
+        console.log(window.innerWidth);
+
+        innerHeight = window.innerHeight;
+        innerWidth = window.innerHeight;
+
+        deleteLine();
+        drawNext(document.getElementById('sourceContainer' + next.source),
+            document.getElementById('targetContainer' + next.destination));
+        drawActive(document.getElementById('sourceContainer' + active.source),
+            document.getElementById('targetContainer' + active.destination));
+
+        //location.reload(true);
+    }
+
+}
+
 //set container layout
 async function initContainer() {
     var config = await loadConfig();
@@ -53,6 +87,7 @@ async function getNewData() {
             return responseJson
         });
 }
+
 async function getSummary() {
     return fetch('./api/pick/getSummary/', {method: 'POST',})
         .then((response) => response.json())
@@ -60,6 +95,7 @@ async function getSummary() {
             return responseJson
         });
 }
+
 async function setSummary() {
     return fetch('./api/pick/setSummary/', {method: 'PUT',});
 }
@@ -104,8 +140,8 @@ async function clearAll() {
 
 async function displayData(data) {
     await clearAll();
-    let active = data[0];
-    let next = data[1];
+    active = data[0];
+    next = data[1];
 
     //active
     document.getElementById("source" + active.destination).innerText = active.productName;
@@ -137,12 +173,12 @@ async function displayData(data) {
         document.getElementById('targetContainer' + next.destination));
 }
 
-async function displaySummary(data){
+async function displaySummary(data) {
     console.log(data);
 
     document.getElementById("modal_auftragsnummer").innerText = "Auftrag: " + data[0].orderNumber;
 
-    if(document.getElementById("modal_info").innerHTML != ""){
+    if (document.getElementById("modal_info").innerHTML != "") {
         document.getElementById("modal_info").innerHTML = "";
     }
 
@@ -150,8 +186,8 @@ async function displaySummary(data){
 
     for (var i = 0; i < data.length; i++) {
         document.getElementById("modal_info").innerHTML +=
-            "<span>" + data[i].amount + "x</span> <span>" +
-            data[i].productBrand + ", " + data[i].productName + " (" + data[i].productColor + ")</span> <br>" +
+            "<div><span>" + data[i].amount + "x</span> <span>" +
+            data[i].productBrand + ", " + data[i].productName + " (" + data[i].productColor + ")</span></div> <div style='text-align: right'> <input style='width: 10px,hight:10px' type='checkbox' name='checkError' id='checkbox" + i + "' Checked='true'></div> <br>" +
             "<hr style='width: 100%'>"
     }
 }
@@ -159,11 +195,11 @@ async function displaySummary(data){
 //Buttons
 async function nextPick() {
     var summary = await getSummary();
-    if(summary.length == 0) {
+    if (summary.length == 0) {
         var data = await getNewData();
         setSummary();
         displayData(data);
-    }else{
+    } else {
         //console.log(summary);
         displaySummary(summary);
 
@@ -178,9 +214,6 @@ async function reversPick() {
     displayData(await getLastPick());
 }
 
-function repeatPick(next) {
-
-}
 
 var modal = document.getElementById("myModal");
 var popup = document.getElementById("popupB");
@@ -188,6 +221,7 @@ var span = document.getElementsByClassName("close")[0];
 var returnButton = document.getElementById("returnbtn");
 var completeButton = document.getElementById("completebtn");
 
+/*
 span.onclick = function () {
     modal.style.display = "none";
     returnButton.disabled = false;
@@ -195,11 +229,42 @@ span.onclick = function () {
     nextPick();
 }
 
-function acceptSummary(){
+ */
+
+function acceptSummary() {
+    var checkboxList = document.getElementsByName("checkError");
+    var picksToMove = [];
+    for (i = 0; i < checkboxList.length; i++) {
+        if (!checkboxList[i].checked) {
+            picksToMove[picksToMove.length] = i;
+        }
+    }
     modal.style.display = "none";
+    console.log(picksToMove);
+    if (picksToMove.length == 0) {
+        nextPick();
+        returnButton.disabled = false;
+        completeButton.disabled = false;
+    } else {
+        redoCheckedPicks(picksToMove);
+    }
+}
+
+function redoCheckedPicks(picksToMove) {
+    var orderNumber = 1000;
+
+    const data = {"picks": picksToMove};
+    const options = {
+        method: "Post",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(picksToMove)
+    }
+
+    fetch('./api/pick/redoPicks/', options).then(nextPick());
     returnButton.disabled = false;
     completeButton.disabled = false;
-    nextPick();
 }
 
 
