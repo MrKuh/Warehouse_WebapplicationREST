@@ -42,14 +42,14 @@ function drawNext(source, target){
     jg2.drawLine(coords[0] + coords[4] / 2, coords[1] + coords[5], coords[0] + coords[4] / 2,
         (coords[1] + coords[5] * help + coords[3]) / 2);
 
-    jg2.drawLine(coords[0] + coords[4] / 2, (coords[1] + coords[5] * help + coords[3]) / 2, coords[2] + coords[6] / 2,
+    jg2.drawLine(coords[0] + coords[4] / 2, (coords[1] + coords[5] * help + coords[3]) / 2, coords[2] + coords[6] / 1.25,
         (coords[1] + coords[5] * help + coords[3]) / 2);
 
-    jg2.drawLine(coords[2] + coords[6] / 2, (coords[1] + coords[5] * help + coords[3]) / 2,
-        coords[2] + coords[6] / 2, coords[3]);
+    jg2.drawLine(coords[2] + coords[6] / 1.25, (coords[1] + coords[5] * help + coords[3]) / 2,
+        coords[2] + coords[6] / 1.25, coords[3] - 5);
 
-    jg2.drawPolyline([(coords[2] + (coords[6] / 2) * 0.9), coords[2] + coords[6] / 2, (coords[2] + (coords[6] / 2) * 1.1)],
-        [(coords[3] + (coords[1] + coords[5] + coords[3]) / 2 * 1.1) / 2, coords[3],
+    jg2.drawPolyline([(coords[2] + (coords[6] / 1.25) * 0.95), coords[2] + coords[6] / 1.25, (coords[2] + (coords[6] / 1.25) * 1.060)],
+        [(coords[3] + (coords[1] + coords[5] + coords[3]) / 2 * 1.1) / 2, coords[3] - 4,
             (coords[3] + (coords[1] + coords[5] + coords[3]) / 2 * 1.1) / 2]);
 
     jg2.paint();
