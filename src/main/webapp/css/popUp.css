@@ -15,7 +15,7 @@ button {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content{
+#modal-content{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -45,8 +45,16 @@ button {
 }
 
 #modal_info {
-    margin-left: 20px;
-    font-size: 22px;
+    margin-left: 18px;
+    font-size: 50px;
     text-align: left;
+    height: 45%;
+    overflow: auto;
 }
+
+#modal_info::-webkit-scrollbar {
+    display: none;
+}
+
+
 

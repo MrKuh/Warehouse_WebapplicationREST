@@ -143,7 +143,8 @@ async function displaySummary(data){
         document.getElementById("modal_info").innerHTML = "";
     }
 
-    document.getElementById("modal_info").innerHTML = "<hr style='width: 100%; height: 2px'>"
+    document.getElementById("modal_info").innerHTML = "<div style='width: 100%; max-height: 100px'>";
+    document.getElementById("modal_info").innerHTML = "<hr style='width: 100%; height: 2px'>";
 
     for (var i = 0; i < data.length; i++) {
         document.getElementById("modal_info").innerHTML +=
@@ -151,6 +152,7 @@ async function displaySummary(data){
             data[i].productBrand + ", " + data[i].productName + " (" + data[i].productColor + ")</span> <br>" +
             "<hr style='width: 100%'>"
     }
+    document.getElementById("modal_info").innerHTML += "</div>";
 }
 
 //Buttons
