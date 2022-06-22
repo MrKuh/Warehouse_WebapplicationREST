@@ -1,10 +1,11 @@
 package at.htlkaindorf.warehouse_webapplicationrest;
 
-import at.htlkaindorf.warehouse_webapplicationrest.beans.Pick;
 import at.htlkaindorf.warehouse_webapplicationrest.db.WebDataBase;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 // /api/customer/2
@@ -70,6 +71,34 @@ public class PickResource {
     public Response skipOrder() {
         try {
             WebDataBase.getInstance().cancelOrderData();
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    @POST
+    @Path("/redoPicks")
+    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response redoPicks(ArrayList<Integer> picks) {
+        try {
+
+            System.out.println(picks);
+            System.out.println(WebDataBase.getInstance().redoPicks(picks));
+
+            /*
+            HashMap<?, ?> dataMap = ((HashMap<?, ?>) data);
+            ArrayList<Integer> pickList = ( (ArrayList) dataMap.get("picks"));
+            int orderNumber = (int) dataMap.get("orderNumber");
+
+             */
+
+            //System.out.println(pickList);
+            //System.out.println(orderNumber);
+
+            //System.out.println(orderNumber);
+            //
+            //WebDataBase.getInstance().redoPicks(picks);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
